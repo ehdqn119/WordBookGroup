@@ -15,6 +15,7 @@ import javax.persistence.*;
 @ToString
 public class Group {
 
+    //test
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
