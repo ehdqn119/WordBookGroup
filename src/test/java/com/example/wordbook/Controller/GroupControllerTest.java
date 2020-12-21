@@ -19,8 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@WebMvcTest(GroupControllerTest.class)
+@WebMvcTest(GroupController.class)
 public class GroupControllerTest {
 
 
@@ -38,15 +37,14 @@ public class GroupControllerTest {
 
         //given
         GroupDto groupDto = GroupDto.builder()
-            .name("중앙로책방스터디")
+            .author("이상민")
             .build();
 
         //given
-        given(groupService.getGroup(-1L)).willReturn(groupDto);
+        given(groupService.getGroup(1L)).willReturn(groupDto);
 
         //when
-        ResultActions rs = mockMvc.perform(get("/v1/api/groups/0")
-                .content(objectMapper.writeValueAsString(groupDto)));
+        ResultActions rs = mockMvc.perform(get("/v1/api/groups/1"));
 
         //then
         rs.andDo(print());

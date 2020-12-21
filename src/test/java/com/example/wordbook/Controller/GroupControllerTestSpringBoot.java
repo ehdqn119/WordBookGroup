@@ -34,7 +34,6 @@ public class GroupControllerTestSpringBoot {
     @Autowired
     ObjectMapper objectMapper;
 
-
     @MockBean
     GroupService groupService;
 
@@ -42,31 +41,27 @@ public class GroupControllerTestSpringBoot {
     MockMvc mockMvc;
 
     @Test
-    public void getGroupTest() throws Exception {
+    public void ConstraintViolationExceptionGroupTest() throws Exception {
 
         //given
-        GroupDto groupDto = GroupDto.builder()
-                .name("대구공고산업인력스터디")
-                .build();
+
         //When
-        String grouptdtoString = objectMapper.writeValueAsString(groupDto);
-        mockMvc.perform(get("/v1/api/groups/0")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(grouptdtoString))
+        mockMvc.perform(get("/v1/api/groups/0"))
                 .andExpect(status().isBadRequest())
                 .andDo(print());
         //Then
     }
 
     @Test
-    public void PostGroupTest() throws Exception {
+    public void MethodArgumentNotValidExceptionGroupTest() throws Exception {
 
         //given
         GroupDto groupDto = GroupDto.builder()
-                .name("대구공고산업인력스터디")
+                .author("정지눅")
                 .build();
-        //When
         String grouptdtoString = objectMapper.writeValueAsString(groupDto);
+
+        //When
         mockMvc.perform(post("/v1/api/groups")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(grouptdtoString))

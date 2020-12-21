@@ -13,12 +13,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> GroupValidation(Exception e) {
-        return new ResponseEntity<String>("Fucking Spring", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<String> idxValidation(Exception e) {
-        return new ResponseEntity<String>("Fucking Spring", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>("[Check your Parameter Value]" + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 

@@ -11,9 +11,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.swing.*;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
+
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -35,7 +37,6 @@ public class GroupRepositoryTest {
 
         //Then
         System.out.println(groupTest.toString());
-        System.out.println(groupTest.getId()+"씌벌");
 
     }
 
