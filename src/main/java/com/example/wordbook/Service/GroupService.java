@@ -51,8 +51,11 @@ public class GroupService {
     }
 
     // 확정 : 리턴 값 없어도 된다.
-    public void DeleteGroup(Long idx) {
+    public GroupDto DeleteGroup(Long idx) {
+        Group group = groupRepository.findById(idx).get();
         groupRepository.deleteById(idx);
+        GroupDto groupDto = modelMapper.map(group,GroupDto.class);
+        return groupDto;
     }
 
 

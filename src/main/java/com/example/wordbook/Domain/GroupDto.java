@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class GroupDto {
 
-    @Min(value = 1,message = "유저의 값은 0이상 이어야 합니다")
+
     private Long id;
     @NotBlank(message = "제목이 비어있습니다")
     private String title;
