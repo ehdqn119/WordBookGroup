@@ -35,7 +35,7 @@ public class GroupControllerTest {
     @Test
     public void getGroupTest() throws Exception {
 
-        //given
+        //given aa
         GroupDto groupDto = GroupDto.builder()
             .author("이상민")
             .build();
