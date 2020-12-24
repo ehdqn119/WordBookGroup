@@ -18,13 +18,11 @@ public class Group {
     //test
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "group_ID")
     private Long id;
-    @Column(name = "TITLE")
-    private String title;
-    @Column(name = "AUTHOR")
-    private String author;
-    @Column(name = "PRICE")
-    private int price;
+    @Column(name = "group_name")
+    private String group_name;
+    @Column(name = "group_rule")
+    private String group_rule;
 
 }

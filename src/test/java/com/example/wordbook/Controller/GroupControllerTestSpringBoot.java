@@ -57,7 +57,7 @@ public class GroupControllerTestSpringBoot {
 
         //given
         GroupDto groupDto = GroupDto.builder()
-                .author("정지눅")
+                .group_name("의학스터디")
                 .build();
         String grouptdtoString = objectMapper.writeValueAsString(groupDto);
 

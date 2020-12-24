@@ -19,11 +19,8 @@ public class GroupDto {
 
     private Long id;
     @NotBlank(message = "제목이 비어있습니다")
-    private String title;
+    private String group_name;
     @NotBlank(message = "작가가 비어있습니다")
-    private String author;
-    @Min(value = 0, message = "가격이 비어있습니다")
-    private int price;
-
+    private String group_rule;
 
 }

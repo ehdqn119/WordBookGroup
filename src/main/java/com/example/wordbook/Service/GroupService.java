@@ -6,6 +6,8 @@ import com.example.wordbook.Repository.GroupRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,11 +23,16 @@ public class GroupService {
     ModelMapper modelMapper;
 
     // 확정 : 있어야 한다. 모델 메퍼 관련 사항 : https://blog.woniper.net/319
-    public List<GroupDto> getGroups() {
+    public Page<GroupDto> getGroups(Pageable pageable) {
         List<Group> groups = new ArrayList<>();
-        groupRepository.findAll().forEach(e -> groups.add(e));
-        List<GroupDto> groupDtos = modelMapper.map(groups, new TypeToken<List<GroupDto>>(){}.getType());
+        groupRepository.findAll(pageable).forEach(e -> groups.add(e));
+        Page<GroupDto> groupDtos = modelMapper.map(groups, new TypeToken<Page<GroupDto>>(){}.getType());
         return groupDtos;
+    }
+
+    public Page<Group> testHateOas(Pageable pageable) {
+        Page<Group> test = groupRepository.findAll(pageable);
+        return test;
     }
 
     // 확정 : 리턴 값 있어야 한다.
@@ -44,9 +51,8 @@ public class GroupService {
     // 애는 모르겠다 (https://tools.ietf.org/html/rfc5789#section-3.2) 확인
     public void UpdateGroup(Long idx, GroupDto groupDto) {
         Group group = groupRepository.findById(idx).get();
-        group.setAuthor(groupDto.getAuthor());
-        group.setPrice(groupDto.getPrice());
-        group.setTitle(groupDto.getTitle());
+        group.setGroup_name(groupDto.getGroup_name());
+        group.setGroup_rule(groupDto.getGroup_rule());
         groupRepository.save(group);
     }
 

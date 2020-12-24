@@ -37,7 +37,7 @@ public class GroupControllerTest {
 
         //given aa
         GroupDto groupDto = GroupDto.builder()
-            .author("이상민")
+            .group_name("공학스터디")
             .build();
 
         //given

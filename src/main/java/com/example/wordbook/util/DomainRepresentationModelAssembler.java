@@ -30,9 +30,8 @@ public class DomainRepresentationModelAssembler extends RepresentationModelAssem
                 .add(linkTo(methodOn(GroupController.class).UpdateGroup(entity.getId(),entity)).withRel("Update")) //Update
                 .add(linkTo(methodOn(GroupController.class).DeleteGroup(entity.getId())).withRel("delete")); //Delete
         model.setId(entity.getId());
-        model.setTitle(entity.getTitle());
-        model.setAuthor(entity.getAuthor());
-        model.setPrice(entity.getPrice());
+        model.setTitle(entity.getGroup_name());
+        model.setAuthor(entity.getGroup_rule());
         return model;
     }
 

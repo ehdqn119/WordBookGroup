@@ -8,6 +8,12 @@ import com.example.wordbook.util.DomainRepresentationModelAssembler;
 import org.apache.catalina.User;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +41,10 @@ public class GroupController {
     // Collection (Ordering, filtering, Pageing) 기능 구현 할 것
     // 리턴 있음
     @GetMapping(value="/groups",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<GroupDto>> getGroups() {
-        List<GroupDto> AllGroup = groupService.getGroups();
-        return new ResponseEntity<List<GroupDto>>(AllGroup,HttpStatus.OK);
+    public ResponseEntity<PagedModel<GroupDto>> getGroups(Pageable pageable, PagedResourcesAssembler assembler) {
+        Page<GroupDto> AllGroup = groupService.getGroups(pageable);
+        Page<Group> test = groupService.testHateOas(pageable);
+        return new ResponseEntity<PagedModel<GroupDto>>(assembler.toModel(test),HttpStatus.OK);
     }
 
     //리턴 있음
