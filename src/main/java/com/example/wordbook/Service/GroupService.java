@@ -7,7 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,8 +26,9 @@ public class GroupService {
 
     // 확정 : 있어야 한다. 모델 메퍼 관련 사항 : https://blog.woniper.net/319
     public Page<GroupDto> getGroups(Pageable pageable) {
-        List<Group> groups = new ArrayList<>();
-        groupRepository.findAll(pageable).forEach(e -> groups.add(e));
+        /*List<Group> groups = new ArrayList<>();*/
+        pageable = PageRequest.of(0,10, Sort.by("id").descending());
+        Page<Group> groups = groupRepository.findAll(pageable);
         Page<GroupDto> groupDtos = modelMapper.map(groups, new TypeToken<Page<GroupDto>>(){}.getType());
         return groupDtos;
     }

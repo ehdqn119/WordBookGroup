@@ -43,8 +43,7 @@ public class GroupController {
     @GetMapping(value="/groups",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PagedModel<GroupDto>> getGroups(Pageable pageable, PagedResourcesAssembler assembler) {
         Page<GroupDto> AllGroup = groupService.getGroups(pageable);
-        Page<Group> test = groupService.testHateOas(pageable);
-        return new ResponseEntity<PagedModel<GroupDto>>(assembler.toModel(test),HttpStatus.OK);
+        return new ResponseEntity<PagedModel<GroupDto>>(assembler.toModel(AllGroup),HttpStatus.OK);
     }
 
     //리턴 있음

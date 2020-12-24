@@ -17,4 +17,6 @@ public interface GroupRepository extends JpaRepository<Group,Long> {
 
     List<Group> findByIdGreaterThan(Long id,Sort sort);
 
+    Page<Group> findAll(Pageable pageable);
+
 }
