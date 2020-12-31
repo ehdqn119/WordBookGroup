@@ -13,10 +13,11 @@ import java.util.List;
 @Repository
 public interface GroupRepository extends JpaRepository<Group,Long> {
 
+    // 페이징 + 페이징 정렬
     List<Group> findByIdGreaterThanOrderByIdDesc(Long id,Pageable pageable);
-
+    // 정렬만
     List<Group> findByIdGreaterThan(Long id,Sort sort);
-
+    // 페이징 + 페이징 정렬
     Page<Group> findAll(Pageable pageable);
 
 }
