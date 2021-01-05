@@ -5,12 +5,14 @@ import com.example.wordbook.Domain.GroupDto;
 import com.example.wordbook.Service.GroupService;
 import com.example.wordbook.util.DomainModel;
 import com.example.wordbook.util.DomainRepresentationModelAssembler;
+import com.example.wordbook.util.GroupSpecificaionBuilder;
 import org.apache.catalina.User;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpEntity;
@@ -25,6 +27,8 @@ import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @RestController
@@ -37,6 +41,21 @@ public class GroupController {
 
     @Autowired
     DomainRepresentationModelAssembler assembler;
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/users")
+    @ResponseBody
+    public List<User> search(@RequestParam(value = "search") String search) {
+        GroupSpecificaionBuilder builder = new GroupSpecificaionBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+
+        Specification<Group> spec = builder.build();
+        return groupService.findAll(spec);
+    }
 
     // Collection (Ordering, filtering, Pageing) 기능 구현 할 것
     // 리턴 있음
