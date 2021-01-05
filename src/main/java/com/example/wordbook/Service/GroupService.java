@@ -1,5 +1,6 @@
 package com.example.wordbook.Service;
 
+import com.example.wordbook.Annotation.EntityValidation;
 import com.example.wordbook.Domain.Group;
 import com.example.wordbook.Domain.GroupDto;
 import com.example.wordbook.Repository.GroupRepository;
@@ -12,8 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class GroupService {
@@ -40,7 +43,8 @@ public class GroupService {
 
     // 확정 : 리턴 값 있어야 한다.
     public GroupDto getGroup(Long idx) {
-        Group group = groupRepository.findById(idx).get();
+        System.out.println(idx);
+        Group group = groupRepository.findById(idx).orElseThrow(NoSuchElementException::new);
         GroupDto groupDto = modelMapper.map(group,GroupDto.class);
         return groupDto;
     }
@@ -52,11 +56,13 @@ public class GroupService {
     }
 
     // 애는 모르겠다 (https://tools.ietf.org/html/rfc5789#section-3.2) 확인
-    public void UpdateGroup(Long idx, GroupDto groupDto) {
-        Group group = groupRepository.findById(idx).get();
+    public GroupDto UpdateGroup(Long idx, GroupDto groupDto) {
+        Group group = groupRepository.findById(idx).orElseThrow(EntityNotFoundException::new);
         group.setGroup_name(groupDto.getGroup_name());
         group.setGroup_rule(groupDto.getGroup_rule());
         groupRepository.save(group);
+        GroupDto returnGroupdto = modelMapper.map(group,GroupDto.class);
+        return returnGroupdto;
     }
 
     // 확정 : 리턴 값 없어도 된다.

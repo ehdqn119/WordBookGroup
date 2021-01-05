@@ -18,9 +18,9 @@ public class GroupDto {
 
 
     private Long id;
-    @NotBlank(message = "제목이 비어있습니다")
+    @NotBlank(message = "그룹이름이 비어있습니다.")
     private String group_name;
-    @NotBlank(message = "작가가 비어있습니다")
+    @NotBlank(message = "그룹권한이 비어있습니다.")
     private String group_rule;
 
 }

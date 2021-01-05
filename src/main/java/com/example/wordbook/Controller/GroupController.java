@@ -53,31 +53,33 @@ public class GroupController {
         return new ResponseEntity<GroupDto>(groupDto,HttpStatus.OK);
     }*/
 
+    // 리턴 있음
     @GetMapping(value="/groups/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DomainModel> getGroup(@PathVariable("idx") @Valid @Min(1) Long idx) {
         GroupDto groupDto = groupService.getGroup(idx);
         return ResponseEntity.ok().body(assembler.toModel(groupDto));
     }
 
-    // 리턴 없음
+    // 리턴 없음, 헤이토스로 관리하면 비 효율적
     @PostMapping(value="/groups",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveGroup(@RequestBody @Valid GroupDto groupDto) {
+    public ResponseEntity<DomainModel> saveGroup(@RequestBody @Valid GroupDto groupDto) {
         groupService.saveGroup(groupDto);
-        return ResponseEntity.ok().body(assembler.toModel(groupDto));
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // 리턴 없음 (애매해서 논의 필요)
     @PatchMapping(value="/groups/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity UpdateGroup(@PathVariable("idx") @Valid @Min(1) Long idx, @RequestBody @Valid GroupDto groupDto) {
-        groupService.UpdateGroup(idx,groupDto);
-        return ResponseEntity.ok().body(assembler.toModel(groupDto));
+        GroupDto groupDto1 = groupService.UpdateGroup(idx,groupDto);
+        return ResponseEntity.ok().body(assembler.toModel(groupDto1));
     }
 
-    // 리턴 없음
+    // 리턴 없음, 헤이토스로 관리하면 비 효율적.
     @DeleteMapping(value="/groups/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity DeleteGroup(@PathVariable("idx") @Valid @Min(1) Long idx) {
         GroupDto groupDto = groupService.DeleteGroup(idx);
-        return ResponseEntity.ok().body(assembler.toModel(groupDto));
+        //Content-Location 으로 처음 시작 지점 URI 보내줘야 겠다. //
+        return ResponseEntity.noContent().header("Location ","localhost:9292/v1/api/groups").build();
     }
 
 }
