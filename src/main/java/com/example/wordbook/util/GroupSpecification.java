@@ -1,3 +1,4 @@
+/*
 package com.example.wordbook.util;
 
 import com.example.wordbook.Domain.Group;
@@ -41,3 +42,4 @@ public class GroupSpecification implements Specification<Group> {
     }
 
 }
+*/

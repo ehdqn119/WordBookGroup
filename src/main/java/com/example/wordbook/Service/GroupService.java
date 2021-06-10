@@ -1,6 +1,8 @@
+/*
 package com.example.wordbook.Service;
 
 import com.example.wordbook.Annotation.EntityValidation;
+
 import com.example.wordbook.Domain.Group;
 import com.example.wordbook.Domain.GroupDto;
 import com.example.wordbook.Repository.GroupRepository;
@@ -14,8 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -29,7 +29,8 @@ public class GroupService {
 
     // 확정 : 있어야 한다. 모델 메퍼 관련 사항 : https://blog.woniper.net/319
     public Page<GroupDto> getGroups(Pageable pageable) {
-        /*List<Group> groups = new ArrayList<>();*/
+List<Group> groups = new ArrayList<>();
+
         pageable = PageRequest.of(0,10, Sort.by("id").descending());
         Page<Group> groups = groupRepository.findAll(pageable);
         Page<GroupDto> groupDtos = modelMapper.map(groups, new TypeToken<Page<GroupDto>>(){}.getType());
@@ -77,3 +78,4 @@ public class GroupService {
 
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.example.wordbook.Repository;
 
 import com.example.wordbook.Domain.Group;
@@ -121,4 +122,4 @@ public class GroupRepositoryTest {
 
 
 
-}
+}*/

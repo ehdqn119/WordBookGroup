@@ -1,7 +1,7 @@
 package com.example.wordbook.Exception;
 
-import com.example.wordbook.Domain.ErrorCode;
-import com.example.wordbook.Domain.ErrorResponse;
+import com.example.wordbook.Exception.BusinessException.BusinessException;
+import com.example.wordbook.Exception.BusinessException.EntityValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +20,22 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    /**
+     * 객체를 사용하지 않은 파라미터 값이 잘못 들어온 경우
+     * ref https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-modelattrib-method-args
+     */
+
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorResponse> idxValidation(Exception e) {
+    public ResponseEntity<ErrorResponse> idxValidation(ConstraintViolationException e) {
         log.error("ConstraintViolationException", e);
         final ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * 컨트롤러 파라미터의 객체 값이 잘못 들어온 경우
+     * ref https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-modelattrib-method-args
+     */
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -40,7 +50,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     protected ResponseEntity<ErrorResponse> handleBindException(BindException e) {
         log.error("handleBindException", e);
-        final ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
+        final ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE,e.getBindingResult());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -105,6 +115,10 @@ public class GlobalExceptionHandler {
         final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.ENTITY_NOT_FOUND);
         return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
     }
+
+
+
+
 
 
 }

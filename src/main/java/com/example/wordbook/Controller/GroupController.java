@@ -1,39 +1,30 @@
+/*
 package com.example.wordbook.Controller;
 
-import com.example.wordbook.Domain.Group;
 import com.example.wordbook.Domain.GroupDto;
 import com.example.wordbook.Service.GroupService;
 import com.example.wordbook.util.DomainModel;
-import com.example.wordbook.util.DomainRepresentationModelAssembler;
-import org.apache.catalina.User;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 
 @RestController
 @Validated
-@RequestMapping("/v1/api")
+@RequestMapping("/api/v1")
 public class GroupController {
 
     @Autowired
     GroupService groupService;
+
 
     @Autowired
     DomainRepresentationModelAssembler assembler;
@@ -47,11 +38,12 @@ public class GroupController {
     }
 
     //리턴 있음
-    /*@GetMapping(value="/groups/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/groups/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupDto> getGroup(@PathVariable("idx") @Valid @Min(1) Long idx) {
         GroupDto groupDto = groupService.getGroup(idx);
         return new ResponseEntity<GroupDto>(groupDto,HttpStatus.OK);
-    }*/
+    }
+
 
     // 리턴 있음
     @GetMapping(value="/groups/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -83,3 +75,4 @@ public class GroupController {
     }
 
 }
+*/

@@ -1,7 +1,7 @@
+/*
 package com.example.wordbook.Annotation.Aspect;
 
 import com.example.wordbook.Annotation.EntityValidation;
-import com.example.wordbook.Exception.EntityValidationException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -27,3 +27,4 @@ public class entityValidationAop {
             throw new EntityValidationException(word);
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.example.wordbook.Repository;
 
 import com.example.wordbook.Domain.Group;
@@ -48,8 +49,10 @@ public class JPASpecificationTest {
                 new GroupSpecification(new SearchCriteria("group_name", ":", "반"));
         List<Group> results = repository.findAll(spec);
 
-        /*assertThat(Group1, isIn(results));
-        assertThat(Group2, isIn(results));*/
+        */
+/*assertThat(Group1, isIn(results));
+        assertThat(Group2, isIn(results));*//*
+
     }
 
     @Test
@@ -61,8 +64,10 @@ public class JPASpecificationTest {
 
         List<Group> results = repository.findAll(Specification.where(spec1).and(spec2));
 
-        /*assertThat(group1, isIn(results));
-        assertThat(group2, not(isIn(results)));*/
+        */
+/*assertThat(group1, isIn(results));
+        assertThat(group2, not(isIn(results)));*//*
+
     }
 
     @Test
@@ -75,8 +80,10 @@ public class JPASpecificationTest {
         List<Group> results =
                 repository.findAll(Specification.where(spec1).and(spec2));
 
-        /*assertThat(userTom, isIn(results));
-        assertThat(userJohn, not(isIn(results)));*/
+        */
+/*assertThat(userTom, isIn(results));
+        assertThat(userJohn, not(isIn(results)));*//*
+
     }
 
     @Test
@@ -89,8 +96,10 @@ public class JPASpecificationTest {
         List<Group> results =
                 repository.findAll(Specification.where(spec1).and(spec2));
 
-        /*assertThat(userJohn, not(isIn(results)));
-        assertThat(userTom, not(isIn(results)));*/
+        */
+/*assertThat(userJohn, not(isIn(results)));
+        assertThat(userTom, not(isIn(results)));*//*
+
     }
 
     @Test
@@ -100,8 +109,11 @@ public class JPASpecificationTest {
 
         List<Group> results = repository.findAll(spec);
 
-        /*assertThat(userJohn, isIn(results));
-        assertThat(userTom, not(isIn(results)));*/
+        */
+/*assertThat(userJohn, isIn(results));
+        assertThat(userTom, not(isIn(results)));*//*
+
     }
 
 }
+*/

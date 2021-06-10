@@ -1,3 +1,4 @@
+/*
 package com.example.wordbook.util;
 
 import lombok.Getter;
@@ -17,3 +18,4 @@ public class SearchCriteria {
         this.value = group_rule;
     }
 }
+*/

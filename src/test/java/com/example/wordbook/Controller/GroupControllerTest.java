@@ -1,3 +1,4 @@
+/*
 package com.example.wordbook.Controller;
 
 import com.example.wordbook.Domain.GroupDto;
@@ -52,4 +53,4 @@ public class GroupControllerTest {
 
     }
 
-}
+}*/
