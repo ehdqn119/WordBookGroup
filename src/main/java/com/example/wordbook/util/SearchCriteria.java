@@ -12,10 +12,15 @@ public class SearchCriteria {
     private String operation;
     private Object value;
 
-    public SearchCriteria(String group_name, String s, String group_rule) {
+
+
+    public SearchCriteria(String group_name, String s, Object group_rule) {
         this.key = group_name;
         this.operation = s;
         this.value = group_rule;
     }
+
+
+
 }
 */

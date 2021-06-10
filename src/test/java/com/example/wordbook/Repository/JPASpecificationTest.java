@@ -58,11 +58,12 @@ public class JPASpecificationTest {
     @Test
     public void givenFirstAndLastName_whenGettingListOfUsers_thenCorrect() {
         GroupSpecification spec1 =
-                new GroupSpecification(new SearchCriteria("firstName", ":", "john"));
+                new GroupSpecification(new SearchCriteria("group_name", ":", "반"));
         GroupSpecification spec2 =
-                new GroupSpecification(new SearchCriteria("lastName", ":", "doe"));
+                new GroupSpecification(new SearchCriteria("group_rule", ":", "권한"));
 
         List<Group> results = repository.findAll(Specification.where(spec1).and(spec2));
+        results.forEach(System.out::println);
 
         */
 /*assertThat(group1, isIn(results));
