@@ -23,8 +23,8 @@ public class OpenApiConfig {
 
   @Bean
   public OpenAPI openAPI(@Value("${springdoc.version}") String appVersion) {
-    Info info = new Info().title("오늘의온도 API").version(appVersion)
-            .description("오늘의 온도")
+    Info info = new Info().title("Today tem").version(appVersion)
+            .description("Today tem")
             .termsOfService("http://swagger.io/terms/")
             .contact(new Contact().name("Lee Sang Min").url("https://blog.jiniworld.me/").email("ehdqn119@gmail.com"))
             .license(new License().name("Apache License Version 2.0").url("http://www.apache.org/licenses/LICENSE-2.0"));

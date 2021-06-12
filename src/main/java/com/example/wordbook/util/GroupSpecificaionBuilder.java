@@ -1,3 +1,4 @@
+/*
 package com.example.wordbook.util;
 
 import com.example.wordbook.Domain.Group;
@@ -43,3 +44,4 @@ public class GroupSpecificaionBuilder {
     private boolean isOrPredicate() {
     }
 }
+*/
