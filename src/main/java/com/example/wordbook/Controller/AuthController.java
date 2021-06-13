@@ -11,6 +11,7 @@ import com.example.wordbook.Payload.SignUpRequest;
 import com.example.wordbook.Repository.jparepository.UserRepository;
 import com.example.wordbook.Security.Oauth2.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +22,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
@@ -37,8 +41,11 @@ public class AuthController {
                         loginRequest.getPassword()
                 )
         );
-
-
+        Collection<?> objs = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        for(Object obj:objs) {
+            log.error("sibar run");
+            log.error((String) obj);
+        }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = tokenProvider.createToken(authentication);

@@ -18,6 +18,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -81,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/api-docs/**", "v3/**")
+                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/api-docs/**")
                 .permitAll()
                 .antMatchers("/",
                         "/error",
@@ -92,13 +96,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js",
-                        "**")
+                        "/**/*.js"
+                        /*"**"*/)
                 .permitAll()
                 .antMatchers("/auth/**", "/oauth2/**")
                 .permitAll()
                 .antMatchers()
                 .permitAll()
+                /*.antMatchers("/swagger-ui/**").hasRole(Role.ADMIN.getKey())*/
+                /*.antMatchers("/api/v1/**").hasAuthority(Role.ADMIN.getKey())*/
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -118,4 +124,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
+
 }

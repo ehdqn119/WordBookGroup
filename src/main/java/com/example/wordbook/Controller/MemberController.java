@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +30,7 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
 
-    @Operation(summary = "모든 유저의 정보를 반환합니다.")
+    @Operation(summary = "모든 유저의 정보를 반환합니다." , security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "성공 시 모든 유저 정보와 200 을 리턴합니다.",
                     content = { @Content(mediaType = "application/json",

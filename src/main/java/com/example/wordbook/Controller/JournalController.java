@@ -9,13 +9,16 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +29,7 @@ import javax.validation.constraints.Min;
 @Validated
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping(value = "/api/v1")
 public class JournalController {
 
@@ -35,7 +39,7 @@ public class JournalController {
 
 
 
-    @Operation(summary = "해당 유저의 모든 다이어리를 검색합니다.")
+    @Operation(summary = "해당 유저의 모든 다이어리를 검색합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "다이어리 검색이 완료되었습니다.",
                     content = { @Content(mediaType = "application/json",
@@ -47,12 +51,15 @@ public class JournalController {
                                                                         Pageable pageable) {
         Page<Journal> journals = journalService.getJournals(email, pageable);
         PagedModel<EntityModel<Journal>> entityModels = assembler.toModel(journals);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(principal.toString());
+
         return ResponseEntity.ok(entityModels);
     }
 
 
 
-    @Operation(summary = "다이어리를 등록 합니다.")
+    @Operation(summary = "다이어리를 등록 합니다." )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "다이어리가 등록되었습니다.",
                     content = { @Content(mediaType = "application/json",

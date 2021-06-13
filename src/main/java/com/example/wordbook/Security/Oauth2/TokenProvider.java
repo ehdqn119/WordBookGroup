@@ -24,6 +24,7 @@ public class TokenProvider {
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
+                .claim("email", userPrincipal.getEmail())
                 .signWith(io.jsonwebtoken.SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
                 .compact();
     }
