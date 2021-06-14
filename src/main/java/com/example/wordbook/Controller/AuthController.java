@@ -43,7 +43,6 @@ public class AuthController {
         );
         Collection<?> objs = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         for(Object obj:objs) {
-            log.error("sibar run");
             log.error((String) obj);
         }
 

@@ -1,5 +1,6 @@
 package com.example.wordbook.Controller;
 
+import com.example.wordbook.Configuraiton.SecuredRestController;
 import com.example.wordbook.Domain.DTO.JournalDTO;
 import com.example.wordbook.Domain.my.Journal;
 import com.example.wordbook.Service.JournalService;
@@ -9,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,8 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ import javax.validation.constraints.Min;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping(value = "/api/v1")
-public class JournalController {
+public class JournalController implements SecuredRestController {
 
     private final PagedResourcesAssembler<Journal> assembler;
     private final JournalAssembler journalAssembler;
@@ -39,7 +40,7 @@ public class JournalController {
 
 
 
-    @Operation(summary = "해당 유저의 모든 다이어리를 검색합니다.", security = @SecurityRequirement(name = "bearerAuth"))
+    @Operation(summary = "해당 유저의 모든 다이어리를 검색합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "다이어리 검색이 완료되었습니다.",
                     content = { @Content(mediaType = "application/json",
@@ -48,11 +49,13 @@ public class JournalController {
                     content = @Content)})
     @GetMapping(value="/{email}/journals")
     public ResponseEntity<PagedModel<EntityModel<Journal>>> getJournals(@PathVariable @Valid @Email String email,
-                                                                        Pageable pageable) {
+                                                                        Pageable pageable, Authentication authentication) {
         Page<Journal> journals = journalService.getJournals(email, pageable);
         PagedModel<EntityModel<Journal>> entityModels = assembler.toModel(journals);
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal.toString());
+        System.out.println(authentication.getPrincipal());
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        log.error(userDetails.getUsername());
+        log.error(userDetails.getPassword());
 
         return ResponseEntity.ok(entityModels);
     }

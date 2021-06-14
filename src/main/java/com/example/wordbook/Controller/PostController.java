@@ -1,6 +1,7 @@
 package com.example.wordbook.Controller;
 
 
+import com.example.wordbook.Configuraiton.SecuredRestController;
 import com.example.wordbook.Domain.my.Journal;
 import com.example.wordbook.Domain.my.Post;
 import com.example.wordbook.Repository.jparepository.PostRepository;
@@ -27,7 +28,7 @@ import javax.validation.constraints.Min;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "api/v1")
-public class PostController {
+public class PostController implements SecuredRestController {
 
     private final JournalRepository journalRepository;
     private final PostRepository postRepository;

@@ -22,8 +22,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.servlet.Filter;
+import java.nio.charset.StandardCharsets;
+
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(
         securedEnabled = true,
         jsr250Enabled = true,
@@ -58,6 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
+    /*@Bean
+    public Filter httpsEnforceFilter() {
+        return new HttpsEnforcer();
+    }*/
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -85,8 +92,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/api-docs/**")
-                .permitAll()
                 .antMatchers("/",
                         "/error",
                         "/favicon.ico",
@@ -99,8 +104,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                         /*"**"*/)
                 .permitAll()
-                .antMatchers("/auth/**", "/oauth2/**")
-                .permitAll()
+                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/api-docs/**","/api-docs/**").permitAll()
+                .antMatchers("/auth/**", "/oauth2/**").permitAll()
                 .antMatchers()
                 .permitAll()
                 /*.antMatchers("/swagger-ui/**").hasRole(Role.ADMIN.getKey())*/

@@ -1,6 +1,7 @@
 package com.example.wordbook.Controller;
 
 
+import com.example.wordbook.Configuraiton.SecuredRestController;
 import com.example.wordbook.Domain.my.Member;
 import com.example.wordbook.Repository.my.MemberRepository;
 import com.example.wordbook.Service.UserService;
@@ -23,7 +24,7 @@ import java.util.List;
 @RequestMapping(value = "/api/v1")
 @RequiredArgsConstructor
 @Validated
-public class MemberController {
+public class MemberController implements SecuredRestController {
 
 
     private final UserService userService;
