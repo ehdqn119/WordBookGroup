@@ -1,3 +1,4 @@
+/*
 package com.example.wordbook.Controller;
 
 import com.example.wordbook.Domain.my.Member;
@@ -14,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MemberRepositoryTest {
-    /*@Autowired
+    */
+/*@Autowired
     MemberRepository memberRepository;
     @Test
     @Transactional
@@ -26,5 +28,6 @@ public class MemberRepositoryTest {
         member.setName("asdasda");
         Member saveMember = memberRepository.save(member);
         System.out.println(saveMember.toString());
-    }*/
-}
+    }*//*
+
+}*/
